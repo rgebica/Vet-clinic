@@ -33,6 +33,7 @@ public class DoctorService {
                 .collect(Collectors.toList());
 
         return DoctorTermsDto.builder()
+                .doctorId(doctor.getDoctorId())
                 .firstName(doctor.getFirstName())
                 .lastName(doctor.getLastName())
                 .terms(terms)
@@ -48,6 +49,7 @@ public class DoctorService {
                 .collect(Collectors.toList());
 
         return DoctorTermsDto.builder()
+                .doctorId(doctor.getDoctorId())
                 .firstName(doctor.getFirstName())
                 .lastName(doctor.getLastName())
                 .terms(terms)
@@ -63,6 +65,7 @@ public class DoctorService {
                 .collect(Collectors.toList());
 
         return DoctorTermsDto.builder()
+                .doctorId(doctor.getDoctorId())
                 .firstName(doctor.getFirstName())
                 .lastName(doctor.getLastName())
                 .terms(terms)
