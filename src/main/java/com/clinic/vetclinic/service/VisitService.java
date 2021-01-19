@@ -1,10 +1,12 @@
 package com.clinic.vetclinic.service;
 
+import com.clinic.vetclinic.dto.CancelVisitDto;
 import com.clinic.vetclinic.dto.TakeTermDto;
 import com.clinic.vetclinic.dto.TermsDto;
 import com.clinic.vetclinic.exception.CustomerNotFoundException;
 import com.clinic.vetclinic.exception.TermIsAlreadyTakenException;
 import com.clinic.vetclinic.exception.TermNotFoundException;
+import com.clinic.vetclinic.exception.VisitNotFoundException;
 import com.clinic.vetclinic.model.Customer;
 import com.clinic.vetclinic.model.Status;
 import com.clinic.vetclinic.model.Term;
@@ -30,12 +32,24 @@ public class VisitService {
         Visit visit = new Visit();
         Term term = termRepository.findById(takeTermDto.getTermId())
                 .orElseThrow(() -> new TermNotFoundException(takeTermDto.getTermId()));
-        if(checkUserCredentials(takeTermDto.getUserId(), takeTermDto.getCodePin()) && checkIfTermIsOpen(takeTermDto.getTermId())) {
-        visit.setTermId(takeTermDto.getTermId());
-        visit.setCustomerId(takeTermDto.getUserId());
-        term.setStatus(Status.TAKEN);
-        visitRepository.save(visit);
-        termRepository.save(term);
+        if (checkUserCredentials(takeTermDto.getUserId(), takeTermDto.getCodePin()) && checkIfTermIsOpen(takeTermDto.getTermId())) {
+            visit.setTermId(takeTermDto.getTermId());
+            visit.setCustomerId(takeTermDto.getUserId());
+            term.setStatus(Status.TAKEN);
+            visitRepository.save(visit);
+            termRepository.save(term);
+        }
+    }
+
+    public void cancelVisit(CancelVisitDto cancelVisitDto) {
+        Visit visit = visitRepository.findById(cancelVisitDto.getVisitId())
+                .orElseThrow(() -> new VisitNotFoundException(cancelVisitDto.getVisitId()));
+        Term term = termRepository.findById(visit.getTermId())
+                .orElseThrow(() -> new TermNotFoundException(visit.getTermId()));
+        if (checkUserCredentials(cancelVisitDto.getUserId(), cancelVisitDto.getCodePin())) {
+            visitRepository.delete(visit);
+            term.setStatus(Status.OPEN);
+            termRepository.save(term);
         }
     }
 
