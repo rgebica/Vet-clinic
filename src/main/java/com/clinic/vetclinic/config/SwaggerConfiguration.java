@@ -27,7 +27,6 @@ public class SwaggerConfiguration {
         return new ApiInfoBuilder()
                 .title("Vet clinic")
                 .version("1.0")
-                .contact("rgebica@gmail.com")
                 .build();
     }
 }
