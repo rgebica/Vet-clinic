@@ -29,7 +29,7 @@ public class DoctorTermsController {
     }
 
     @CrossOrigin
-    @GetMapping("/open-terms/{doctorId}")
+    @GetMapping("/taken-terms/{doctorId}")
     public DoctorTermsDto getTakenDoctorTerms(@PathVariable long doctorId) {
         return doctorService.getAllTakenDoctorTerms(doctorId);
     }
