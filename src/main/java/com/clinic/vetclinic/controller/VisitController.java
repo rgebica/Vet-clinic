@@ -28,7 +28,7 @@ public class VisitController {
     }
 
     @CrossOrigin
-    @DeleteMapping("/take-term")
+    @DeleteMapping("/cancel-term")
     public ResponseEntity<String> deleteVisit(@RequestBody CancelVisitDto cancelVisitDto) {
         visitService.cancelVisit(cancelVisitDto);
         return new ResponseEntity<>("Visit canceled", OK);
