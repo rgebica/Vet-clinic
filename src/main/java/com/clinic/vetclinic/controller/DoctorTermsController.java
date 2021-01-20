@@ -33,4 +33,23 @@ public class DoctorTermsController {
     public DoctorTermsDto getTakenDoctorTerms(@PathVariable long doctorId) {
         return doctorService.getAllTakenDoctorTerms(doctorId);
     }
+
+    @CrossOrigin
+    @GetMapping("/open-terms-date/{doctorId}/{date}")
+    public DoctorTermsDto getOpenDoctorTermsByDate(@PathVariable long doctorId, @PathVariable String date) {
+        return doctorService.getOpenTermsByDate(doctorId, date);
+    }
+
+    @CrossOrigin
+    @GetMapping("/terms-date/{doctorId}/{date}")
+    public DoctorTermsDto getDoctorTermsByDate(@PathVariable long doctorId, @PathVariable String date) {
+        return doctorService.getDoctorTermsByDate(doctorId, date);
+    }
+
+    @CrossOrigin
+    @GetMapping("/taken-terms-date/{doctorId}/{date}")
+    public DoctorTermsDto getTakenDoctorTermsByDate(@PathVariable long doctorId, @PathVariable String date) {
+        return doctorService.getDoctorTakenTermsByDate(doctorId, date);
+    }
+
 }

@@ -1,12 +1,10 @@
 package com.clinic.vetclinic.service;
 
 import com.clinic.vetclinic.dto.CancelVisitDto;
+import com.clinic.vetclinic.dto.CustomerVisitDto;
 import com.clinic.vetclinic.dto.TakeTermDto;
 import com.clinic.vetclinic.dto.TermsDto;
-import com.clinic.vetclinic.exception.CustomerNotFoundException;
-import com.clinic.vetclinic.exception.TermIsAlreadyTakenException;
-import com.clinic.vetclinic.exception.TermNotFoundException;
-import com.clinic.vetclinic.exception.VisitNotFoundException;
+import com.clinic.vetclinic.exception.*;
 import com.clinic.vetclinic.model.Customer;
 import com.clinic.vetclinic.model.Status;
 import com.clinic.vetclinic.model.Term;
@@ -18,6 +16,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -66,7 +68,7 @@ public class VisitService {
         if (customerRepository.existsByCustomerIdAndCodePin(customerId, codePin)) {
             return true;
         } else {
-            throw new CustomerNotFoundException(customerId, codePin);
+            throw new CustomerBadCredentialsException(customerId, codePin);
         }
     }
 
@@ -74,5 +76,25 @@ public class VisitService {
         return termRepository.findById(termId)
                 .map(Term::dto)
                 .orElseThrow(() -> new TermNotFoundException(termId));
+    }
+
+    public CustomerVisitDto customerVisits(long customerId) {
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException(customerId));
+
+        List<Long> longTerms = visitRepository.findAllByCustomerId(customerId).stream()
+                .map(Visit::getTermId)
+                .collect(Collectors.toList());
+
+        List<TermsDto> visits = termRepository.findAllByTermIdIn(longTerms).stream()
+                .map(Term::dto)
+                .collect(Collectors.toList());
+
+        return CustomerVisitDto.builder()
+                .customerId(customerId)
+                .customerName(customer.getFirstName())
+                .customerLastName(customer.getLastName())
+                .visits(visits)
+                .build();
     }
 }

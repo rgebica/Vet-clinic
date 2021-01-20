@@ -32,6 +32,7 @@ public class Term {
                 .date(date)
                 .hour(hour)
                 .status(status)
+                .doctorId(doctorId)
                 .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.clinic.vetclinic.controller;
 
 import com.clinic.vetclinic.dto.CancelVisitDto;
+import com.clinic.vetclinic.dto.CustomerVisitDto;
 import com.clinic.vetclinic.dto.TakeTermDto;
 import com.clinic.vetclinic.service.VisitService;
 import lombok.AccessLevel;
@@ -32,5 +33,11 @@ public class VisitController {
     public ResponseEntity<String> deleteVisit(@RequestBody CancelVisitDto cancelVisitDto) {
         visitService.cancelVisit(cancelVisitDto);
         return new ResponseEntity<>("Visit canceled", OK);
+    }
+
+    @CrossOrigin
+    @GetMapping("/customer-visits-date/{customerId}")
+    public CustomerVisitDto customerVisits(@PathVariable long customerId) {
+        return visitService.customerVisits(customerId);
     }
 }
