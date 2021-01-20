@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +19,8 @@ public class Doctor {
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long doctorId;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
 }

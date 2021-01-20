@@ -1,11 +1,8 @@
 package com.clinic.vetclinic.service;
 
 import com.clinic.vetclinic.dto.CreateTermDto;
-import com.clinic.vetclinic.dto.TakeTermDto;
-import com.clinic.vetclinic.exception.TermNotFoundException;
 import com.clinic.vetclinic.model.Status;
 import com.clinic.vetclinic.model.Term;
-import com.clinic.vetclinic.model.Visit;
 import com.clinic.vetclinic.repository.TermRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

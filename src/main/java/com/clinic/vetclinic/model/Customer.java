@@ -1,5 +1,6 @@
 package com.clinic.vetclinic.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,12 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long customerId;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private long codePin;
 }

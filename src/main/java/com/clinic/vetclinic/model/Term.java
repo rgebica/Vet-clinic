@@ -20,9 +20,13 @@ public class Term {
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long termId;
+    @NotNull
     private String date;
+    @NotNull
     private String hour;
+    @NotNull
     private long doctorId;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
 

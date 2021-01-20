@@ -64,7 +64,7 @@ public class VisitService {
         }
     }
 
-    boolean checkUserCredentials(long customerId, long codePin) {
+    public boolean checkUserCredentials(long customerId, long codePin) {
         if (customerRepository.existsByCustomerIdAndCodePin(customerId, codePin)) {
             return true;
         } else {

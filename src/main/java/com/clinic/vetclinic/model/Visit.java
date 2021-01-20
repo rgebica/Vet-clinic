@@ -1,5 +1,6 @@
 package com.clinic.vetclinic.model;
 
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,10 @@ import javax.persistence.*;
 public class Visit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private long visitId;
+    @NotNull
     private long termId;
+    @NotNull
     private long customerId;
 }
